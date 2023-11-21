@@ -37,7 +37,7 @@ class ProductManager{
     }
 }
 
-const productManager = new ProductManager
+const productManager = new ProductManager()
 console.log(productManager.getProducts()); 
 productManager.addProduct('Placa de video', 'la mejor grafica de todo el mercado', 2000, 'rtx 4090 msi', 4, 'https://app.contabilium.com/files/explorer/20302/Productos-Servicios/concepto-11445886.png')
 productManager.addProduct('Motherboard', 'la mejor mother de todo el mercado', 2000, 'z390 asus', 11, 'https://dlcdnwebimgs.asus.com/gain/5A82F507-4F6D-4526-A088-ECEF3357DAEA')
