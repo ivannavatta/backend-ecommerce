@@ -34,6 +34,7 @@ class ProductManager{
         if(!idExist){
           return  console.log('not found');
         }
+     return idExist
     }
 }
 
