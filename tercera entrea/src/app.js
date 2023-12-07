@@ -31,18 +31,21 @@ app.get('/products', async (req, res) => {
 })
 
 app.get('/products/:id', async (req, res) => {
-    const idProducto = Number(req.params.id); 
+    const productId = Number(req.params.id); 
     try {
-        const producto = await productManager.getProductById(idProducto);
-        if (!producto) {
-            return res.json({ error: 'Producto no encontrado' });
-        }
-        res.json({ producto });
+        const producto = await productManager.getProductById(productId);
+        res.json({ message: producto });
     } catch (error) {
-        console.error('Error al obtener producto por ID:', error);
-        res.json({ error: 'Error al obtener producto por ID' });
+        console.error('Error al obtener producto por ID:', error.message);
+        res.json({ error: `el producto con el id ${productId} no existe` });
     }
 });
+
+
+
+
+
+
 
    
    

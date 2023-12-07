@@ -1,15 +1,23 @@
 import fs from 'fs'
 
-const path = './files/products.json'
+
 
 
  export default class ProductManager {
+    constructor(){
+        this.path = './files/products.json'
+        this.consultarProductos();
+    }
 
     consultarProductos = async () => {
 
-        if(fs.existsSync(path)){
-            const data = await fs.promises.readFile(path,'utf-8')
+        if(fs.existsSync(this.path)){
+            const data = await fs.promises.readFile(this.path,'utf-8')
             const productos = JSON.parse(data);
+           
+             
+             this.product = productos;
+
             return productos
         } else{
             return [];
@@ -27,7 +35,7 @@ const path = './files/products.json'
         }
 
         productos.push(producto);
-        await fs.promises.writeFile(path,JSON.stringify(productos,null,'\t'))
+        await fs.promises.writeFile(this.path,JSON.stringify(productos,null,'\t'))
         return productos
 
     }
@@ -46,7 +54,7 @@ const path = './files/products.json'
         const updatedProduct = { ...productos[index], ...updatedData };
         productos[index] = updatedProduct;
 
-        await fs.promises.writeFile(path, JSON.stringify(productos, null, '\t'));
+        await fs.promises.writeFile(this.path, JSON.stringify(productos, null, '\t'));
 
         return updatedProduct;
     }
@@ -64,7 +72,7 @@ const path = './files/products.json'
 
         const deletedProduct = productos.splice(index, 1)[0];
 
-        await fs.promises.writeFile(path, JSON.stringify(productos, null, '\t'));
+        await fs.promises.writeFile(this.path, JSON.stringify(productos, null, '\t'));
 
         return deletedProduct;
     }
@@ -74,11 +82,17 @@ const path = './files/products.json'
 
 
     getProductById(id) {
-        const product = this.product.find(product => product.id === Number(id));
-        if (!product) {
-            console.error('Producto no encontrado');
-            return;
-        }
-        return product;
+        return new Promise((resolve, reject) => {
+            console.log('ID recibido:', Number(id));
+            console.log('Lista de productos:', this.product);
+            const product = this.product.find(product => product.id === Number(id));
+            if (product) {
+                resolve(product);
+            } else {
+                reject(new Error(`el producto con el id ${id} no existe`));
+            }
+        });
     }
+    
+    
   }
