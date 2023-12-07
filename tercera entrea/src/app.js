@@ -25,22 +25,22 @@ app.get('/products', async (req, res) => {
         }
     } catch (error) {
         console.error('Error al obtener productos:', error);
-        res.status(500).json({ error: 'Error al obtener productos' });
+        res.json({ error: 'Error al obtener productos' });
     }
     
 })
 
 app.get('/products/:id', async (req, res) => {
-    const idProducto = req.params.id; // Cambiado de req.params.idProducto a req.params.id
+    const idProducto = req.params.id; 
     try {
         const producto = await productManager.getProductById(idProducto);
         if (!producto) {
-            return res.status(404).json({ error: 'Producto no encontrado' });
+            return res.json({ error: 'Producto no encontrado' });
         }
         res.json({ producto });
     } catch (error) {
         console.error('Error al obtener producto por ID:', error);
-        res.status(500).json({ error: 'Error al obtener producto por ID' });
+        res.json({ error: 'Error al obtener producto por ID' });
     }
 });
 
