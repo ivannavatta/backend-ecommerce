@@ -31,7 +31,7 @@ app.get('/products', async (req, res) => {
 })
 
 app.get('/products/:id', async (req, res) => {
-    const idProducto = req.params.id; 
+    const idProducto = Number(req.params.id); 
     try {
         const producto = await productManager.getProductById(idProducto);
         if (!producto) {
