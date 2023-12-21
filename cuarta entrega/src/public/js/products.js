@@ -1,3 +1,7 @@
+const ProductManager = require("../../controllers/productManager");
+
+const productManager = new ProductManager();
+
 const socket = io()
 
 
@@ -25,6 +29,12 @@ const socket = io()
         titleInput.value = '';
         priceInput.value = '';
         descriptionInput.value = '';
+
+        const addNewProduct = productManager.addProducto(newProduct)
+
+        console.log('nuevo produco aregado:', addNewProduct);
+
+
       });
       
    
