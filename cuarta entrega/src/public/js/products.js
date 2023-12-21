@@ -9,21 +9,46 @@ const socket = io()
   
 
 
-    titleInput.addEventListener('keyup', evt =>{
-        if(evt.key === 'Enter'){
-            const data = titleInput.value
-            titleInput.value = ''
-            socket.emit('message', data)
-    
-        }
-       })
+    addProductForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+      
+        const newProduct = {
+          title: titleInput.value,
+          price: priceInput.value,
+          description: descriptionInput.value,
+        };
+      
+        // Envía el nuevo producto al servidor a través de WebSocket
+        socket.emit('addProduct', newProduct);
+      
+        // Limpiar los campos del formulario después de agregar el producto
+        titleInput.value = '';
+        priceInput.value = '';
+        descriptionInput.value = '';
+      });
+      
    
 
  
 
-   socket.on('messageProducts', data => {
-    let products = ''
+      socket.on('messageProducts', data => {
+        let productsHTML = '';
+    
+        data.forEach(product => {
+            productsHTML += `
+                <div id="product-list">
+                    <p>Name: ${product.title} </p>
+                    <p>Price: ${product.price} </p>
+                    <p>Description: ${product.description} </p>
+                </div>
+            `;
+        });
+    
+        messageLogs.innerHTML = productsHTML;
+    });
+    
 
-    data.forEach(product => (products += `${product} <br>`));
-    messageLogs.innerHTML = products
-   })
+
+
+
+

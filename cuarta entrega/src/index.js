@@ -27,7 +27,7 @@ const io = new Server(httpServer)
 io.on('connection', socket => {
     console.log('id:', socket.id);
 
-    socket.on('message', data => {
+    socket.on('addProduct', data => {
        products.push(data);
 
        io.emit('messageProducts', products)
