@@ -117,5 +117,11 @@
 		"code": "15 pro max",
 		"stock": 20,
 		"id": 15
+	},
+	{
+		"title": "rtx 4090",
+		"price": "1000",
+		"description": "la mejor grafica del mercado",
+		"id": 16
 	}
 ]

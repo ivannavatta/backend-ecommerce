@@ -3,6 +3,7 @@ const handlebars = require('express-handlebars')
 const { port } = require('./configs/server.config');
 const { Server } = require('socket.io')
 const router = require('./router');
+const ProductManager = require('./controllers/productManager');
 
 const products = []
 
@@ -25,11 +26,14 @@ const httpServer = app.listen(port, () => {
 const io = new Server(httpServer)
 
 io.on('connection', socket => {
+    const productManager = new ProductManager()
+
+    
     console.log('id:', socket.id);
 
     socket.on('addProduct', data => {
        products.push(data);
-
+       productManager.addProducto(data)
        io.emit('messageProducts', products)
     })
 
